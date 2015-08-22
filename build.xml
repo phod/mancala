@@ -1,11 +1,15 @@
 <project name="Mancala" default="dist" basedir=".">
   <description>
-    simple example build file
+    Build file for Mancala program. Currently handles compilation
+    and distribution. Will also include automated testing and
+    generation of documentation.
   </description>
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
   <property name="build" location="build"/>
   <property name="dist" location="dist"/>
+  <property name="tests" location="tests"/>
+  <property name="docs" location="docs"/>
 
   <target name="init">
     <!-- Create the time stamp -->
