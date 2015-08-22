@@ -2,3 +2,7 @@
 *.class
 #*
 *#
+build
+build/*
+dist
+dist/*
