@@ -1,7 +1,7 @@
 /**
  * MancalaApp is the entry point of the application. 
  *
- * @author
+ * @author Philip Hodder
  * @since 2015-08-23
  */
 
