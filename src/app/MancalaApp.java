@@ -24,6 +24,25 @@ public class MancalaApp {
 	System.out.println("\nIN PROGRESS.");
 	System.exit(0);
     }
+
+    /**
+     * Iterates over the command line arguments, processing as 
+     * required.
+     *
+     * @param args The command line arguments.
+     */
+    public static void processArgs(String [] args) {
+	for (String argument: args) {
+	    if (CLIParser.checkMatch(argument, "-h")) {
+		printUsage();
+	    } else if (CLIParser.checkMatch(argument, "-t")) {
+		//Enter Text UI Mode
+	    } else {
+		System.out.println("Invalid CLI arguments supplied.\n");
+		printUsage();
+	    }
+	}
+    }
     
     /**
      * Currently, prints out "Hello, World!"
@@ -34,12 +53,7 @@ public class MancalaApp {
      */
     public static void main(String [] args) {
 	if (args.length > 0) {
-	    if (args[0].equals("-h")) {
-		printUsage();
-	    } else {
-		System.out.println("Invalid CLI arguments supplied.\n");
-		printUsage();
-	    }
+	    processArgs(args);
 	}
 	System.out.println("Hello, World!");
 	System.out.println(args.length);
