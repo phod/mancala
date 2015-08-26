@@ -1,3 +1,5 @@
+package gameLogic;
+
 /**
  * BoardData contains the state of the Mancala board.
  *
