@@ -40,12 +40,20 @@
     <!-- Put everything in ${build} into the Mancala-${DSTAMP}.jar file -->
     <jar jarfile="${dist}/lib/Mancala-${DSTAMP}.jar" basedir="${build}"/>
   </target>
-
-  <!--Add unit tests to build once implemented-->
+  
+  <!-- Runs the compiled application -->
+  <target name="run" depends="compile">
+        <java classname="MancalaApp">
+       <classpath>  
+           <pathelement location="${build}"/>
+        </classpath>
+    </java> 
+  </target>
+  
+   <!--Add unit tests to build once implemented-->
   <target name="fullBuild" depends="dist, doc"
 	  description="create application, docs, and tests">
   </target>
-  
   
   <target name="clean"
           description="clean up">
