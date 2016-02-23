@@ -36,17 +36,17 @@ public class BoardController {
 	/**
 	 * Tests if player has one
 	 * 
-	 * @return Returns 1 if player has won, else returns 0
+	 * @return Returns 1 if game is over, else returns 0
 	 */
-	public int hasWon() {
-		boolean winning = true;
+	public int gameOver() {
+		boolean finished = true;
 		for (int hole = 0; hole < 6; hole++) {
 			if (board.getPieces(player, hole) != 0) {
-				winning = false;
+				finished = false;
 				break;
 			}
 		}
-		if (winning == true) {
+		if (finished == true) {
 			return 1;
 		} else
 			return 0;
@@ -58,7 +58,7 @@ public class BoardController {
 	 * @return
 	 * 		True if hole is empty, else false
 	 */
-	public boolean isHoleEmpty(hole){
+	public boolean isHoleEmpty(int hole){
 		if(board.getPieces(player, hole)==0){
 			return true;
 		}
