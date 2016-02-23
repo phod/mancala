@@ -10,6 +10,8 @@ package gameLogic;
 
 public class BoardController {
 
+	private int numberOfPlayers= 2;
+	private int numberOfHoles =6;
 	BoardData board;
 	int player;
 
@@ -18,7 +20,7 @@ public class BoardController {
 	 * player 0
 	 */
 	public BoardController() {
-		board = new BoardData();
+		board = new BoardData(numberOfPlayers, numberOfHoles);
 		player = 0;
 
 	}
@@ -26,8 +28,7 @@ public class BoardController {
 	/**
 	 * Sets the current player
 	 * 
-	 * @param nextPlayer
-	 *            Sets the current player for the board
+	 * @param nextPlayer Sets the current player for the board
 	 */
 	public void setPlayer(int nextPlayer) {
 		player = nextPlayer;
@@ -36,70 +37,41 @@ public class BoardController {
 	/**
 	 * Tests if game is over
 	 * 
-	 * @return Returns 1 if game is over, else returns 0
+	 * @return Returns true if game is over, else returns false
 	 */
-	public int gameOver() {
+	public boolean gameOver() {
 		boolean finished = true;
-		for (int hole = 0; hole < 6; hole++) {
-			if (board.getPieces(player, hole) != 0) {
+		for (int hole = 0; hole < numberOfHoles; hole++) {
+			if (!board.isHoleEmpty(player, hole)) {
 				finished = false;
 				break;
 			}
 		}
 		if (finished == true) {
-			return 1;
-		} else
-			return 0;
-	}
-
-	/**
-	 * Tests if hole is empty
-	 * 
-	 * @param hole
-	 *            The hole number that is checked
-	 * 
-	 * @return True if hole is empty, else false
-	 */
-	public boolean isHoleEmpty(int hole) {
-		if (board.getPieces(player, hole) == 0) {
 			return true;
 		} else
 			return false;
 	}
 
+
 	/**
 	 * This methods takes the marbles from the specified hole, and places them
-	 * one by one in the following holes. Because of how this mehtod is
-	 * structures, the holes must be like so when implemented
-	 * m,p1h1,p1h2,p1h3,p1h4,p1h5,p1h6
+	 * one by one in the following holes. Note how the placing wraps to go to other players
 	 */
 	public void pickHole(int hole) {
 		int numberOfMarbles = board.getPieces(player, hole);
 		board.addPieces(player, hole, -numberOfMarbles);
 		for (int placing = numberOfMarbles; placing > 0; placing--) {
 			hole++;
-
-			// Checks if it has reached the other player's side (excpet mancala)
-			if ((hole / 6) % 2 == 1) {
-				// Checks if it has reached Mancala for player
-				if (hole % 6 == 0) {
-					board.addMancala(player, 1);
-				} else {
-					// The absolute of player-1 is the other player
-					board.addPieces(Math.abs(player - 1), hole % 6, 1);
-				}
-			}
-			// Checks if it has reached Mancala for other player
-			else if (hole % 6 == 0) {
-				// The absolute of player-1 is the other player
-				board.addMancala(Math.abs(player - 1), 1);
-			}
-			// Adds peics to the players hole
-			else {
-				board.addPieces(player, hole % 6, 1);
+			// Checks side of the board it is on
+			int tempPlayer = (hole / numberOfHoles) % numberOfPlayers;
+			if (hole % numberOfHoles == 0) {
+				board.addPoints(tempPlayer - 1, 1);
+			} else {
+				board.addPieces(tempPlayer, hole % numberOfHoles, 1);
 			}
 
 		}
-
+		
 	}
 }
