@@ -21,13 +21,14 @@ public class BoardData {
 	 */
 	public BoardData() {
 		this.holes = new int[2][6];
-		this.mancalas = new int[2];
+		this.mancalas = new int[] {0,0};
 		// Add 4 pieces to each hole.
 		for (int i = 0; i < this.holes.length; i++) {
 			this.addPieces(SIDE_ONE, i, 4);
 			this.addPieces(SIDE_TWO, i, 4);
 		}
 	}
+	
 
 	/**
 	 * Adds the specified number of pieces to the specified hole. This method
@@ -48,6 +49,16 @@ public class BoardData {
 	 */
 	public void addPieces(int side, int pos, int numPieces) {
 		this.holes[side][pos] += numPieces;
+	}
+	
+	/**
+	 * Adds the specified number of peices to the specified mancala hole
+	 * 
+	 * @param side
+	 * 				The side of the board
+	 */
+	public void addMancala(int side, int numPieces) {
+		this.mancalas[side] += numPieces;
 	}
 
 	/**
@@ -71,4 +82,17 @@ public class BoardData {
 		return this.holes[side][pos];
 	}
 
+	/**
+	 * Returns the number of pieces a mancala hole
+	 * 
+	 * @param side
+	 * 				The side of the board
+	 * 
+	 * @return
+	 *			Number of peices in specified mancala
+	 */
+	public int getMancala(int side){
+		return this.mancalas[side];
+	}
+	
 }
