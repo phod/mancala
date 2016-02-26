@@ -52,13 +52,31 @@ public class BoardController {
 		} else
 			return false;
 	}
+	
+	public boolean lastHole(int piecesLeft){
+		if (piecesLeft==1){
+			return true;
+		}
+		return false;
+	}
 
-
+	public void capture(int hole){
+		
+	
+	}
+	
+	
 	/**
 	 * This methods takes the marbles from the specified hole, and places them
-	 * one by one in the following holes. Note how the placing wraps to go to other players
+	 * one by one in the following holes. If it is not a players points, it will continue around the board.
+	 * 
+	 * Note how the placing wraps to go to other players
+	 * 
+	 * @parm hole The hole player choiceds to empty
+	 * 
+	 * @return True means player gets another turn, False means, it goes to next player
 	 */
-	public void pickHole(int hole) {
+	public boolean pickHole(int hole) {
 		int numberOfMarbles = board.getPieces(player, hole);
 		board.addPieces(player, hole, -numberOfMarbles);
 		for (int placing = numberOfMarbles; placing > 0; placing--) {
@@ -66,12 +84,21 @@ public class BoardController {
 			// Checks side of the board it is on
 			int tempPlayer = (hole / numberOfHoles) % numberOfPlayers;
 			if (hole % numberOfHoles == 0) {
-				board.addPoints(tempPlayer - 1, 1);
+				if (tempPlayer != player) {
+					placing++;
+				} else {
+					board.addPoints(player, 1);
+					if(lastHole(placing)){
+						return true;
+					}
+				}
 			} else {
 				board.addPieces(tempPlayer, hole % numberOfHoles, 1);
+				if(lastHole(placing)){
+					capture(hole);
+				}
 			}
-
 		}
-		
+		return false;
 	}
 }
