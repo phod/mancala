@@ -35,7 +35,23 @@ public class BoardController {
 	}
 
 	/**
-	 * Tests if game is over
+	 * The player who still has pieces on his side of the board when the game ends captures all of those pieces.
+	 * 
+	 * @param losingPlayer The player who lost
+	 */
+	public void endGameCapture(int losingPlayer){
+		for (int hole = 0; hole < numberOfHoles; hole++) {
+			if(!board.isHoleEmpty(losingPlayer, hole)){
+				int numberOfPiecesCaptured = board.getPieces(losingPlayer, hole);
+				board.addPieces(losingPlayer, hole, -numberOfPiecesCaptured);
+				board.addPoints(losingPlayer, numberOfPiecesCaptured);
+			}
+		}
+	}
+	
+	
+	/**
+	 * Tests if game is over, the game ends when all six spaces on one side of the Mancala board are empty.
 	 * 
 	 * @return Returns true if game is over, else returns false
 	 */
@@ -53,26 +69,43 @@ public class BoardController {
 			return false;
 	}
 	
-	public boolean lastHole(int piecesLeft){
+	/**
+	 * Used test there is only one piece left, meaning it is the last hole to place a piece in
+	 * 
+	 * @parm piecesLeft the number of peices left
+	 * 
+	 * @return true if it is the last peice, else false.
+	 */
+	private boolean lastHole(int piecesLeft){
 		if (piecesLeft==1){
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * Used to capture if the last piece player places is in an empty hole on player's side.
+	 * Player capture that piece and any pieces in the hole directly opposite.
+	 * 
+	 * @param hole The hole numbe that is being captured by player
+	 */
 	public void capture(int hole){
-		
+		int otherPlayer=(Math.abs(player-1));
+		int numberOfPiecesCaptured = board.getPieces(otherPlayer, hole);	
+		board.addPieces(otherPlayer, hole, -numberOfPiecesCaptured);
+		board.addPieces(player, hole, -1);	
+		board.addPoints(player, numberOfPiecesCaptured+1);
 	
 	}
 	
-	
+
 	/**
 	 * This methods takes the marbles from the specified hole, and places them
 	 * one by one in the following holes. If it is not a players points, it will continue around the board.
 	 * 
 	 * Note how the placing wraps to go to other players
 	 * 
-	 * @parm hole The hole player choiceds to empty
+	 * @param hole The hole player choiceds to empty
 	 * 
 	 * @return True means player gets another turn, False means, it goes to next player
 	 */

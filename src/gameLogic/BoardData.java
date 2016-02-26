@@ -49,7 +49,8 @@ public class BoardData {
 	/**
 	 * Adds the specified number of peices to the specified points hole
 	 * 
-	 * @param side The side of the board
+	 * @param side The side of the board.
+	 * @param numPieces The number of peices to add to the side (can be negative to subtract pieces).
 	 */
 	public void addPoints(int side, int numPieces) {
 		this.points[side] += numPieces;
