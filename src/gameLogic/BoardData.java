@@ -106,4 +106,6 @@ public class BoardData {
 		return this.points[side];
 	}
 	
+	
+	
 }

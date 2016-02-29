@@ -24,7 +24,19 @@ public class BoardController {
 		player = 0;
 
 	}
-
+	
+	/**
+	 * Used for printing board state to console. 
+	 */
+	public void printBoard(){
+		for(int players = 0; players<numberOfPlayers; players++){
+			for(int sides = 0; sides<numberOfHoles; sides++){
+				System.out.print(board.getPieces(players, sides) + " ");
+			}
+			System.out.print(board.getPoints(players) + " ");
+		}
+	}
+	
 	/**
 	 * Sets the current player
 	 * 
