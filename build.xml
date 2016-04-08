@@ -12,7 +12,7 @@
   <property name="test" location="tests"/>
   <property name="docs" location="docs"/>
 
-  <property name="test.report" location="testreport" />
+  <property name="test.report" location="testreport"/>
 
   <!-- Define the classpath which includes the junit.jar-->
   <!-- and the classes after compiling-->
@@ -27,6 +27,8 @@
     <tstamp/>
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build}"/>
+  	<!-- Create the testreport directory used by Junit -->
+  	<mkdir dir="${test.report}"/>
   </target>
 
   <target name="compile" depends="init"
