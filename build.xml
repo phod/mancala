@@ -29,12 +29,15 @@
     <mkdir dir="${build}"/>
   	<!-- Create the testreport directory used by Junit -->
   	<mkdir dir="${test.report}"/>
+  	<!-- Create the build.test directory used by compile & Junit -->
+  	<mkdir dir="${build.test}"/>
   </target>
 
   <target name="compile" depends="init"
           description="compile the source">
     <!-- Compile the java code from ${src} into ${build} -->
     <javac srcdir="${src}" destdir="${build}"/>
+  	<javac srcdir="${test}" destdir="${build.test}"/>
   </target>
 
   <!-- Run the JUnit Tests -->
