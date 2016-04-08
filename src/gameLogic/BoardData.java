@@ -42,7 +42,11 @@ public class BoardData {
 	 * @throws InvalidPositionException TODO
 	 * @throws NegativePiecesException TODO
 	 */
-	public void addPieces(int side, int pos, int numPieces) {
+	public void addPieces(int side, int pos, int numPieces){
+		/*if(this.holes[side][pos] - numPieces <0){
+			throw new NegativePiecesException("Negative peices");
+		}
+		*/
 		this.holes[side][pos] += numPieces;
 	}
 	
